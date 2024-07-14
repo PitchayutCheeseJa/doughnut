@@ -16,6 +16,7 @@
       <thead>
         <tr>
           <th>Approved</th>
+          <th>Actions</th>
           <th>Question Text</th>
           <th>A</th>
           <th>B</th>
@@ -35,6 +36,9 @@
               v-model="question.approved"
               @change="toggleApproval(question.id)"
             />
+          </td>
+          <td>
+            <button>Delete</button>
           </td>
           <td>{{ question.quizQuestion.multipleChoicesQuestion.stem }}</td>
           <template
