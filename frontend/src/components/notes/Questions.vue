@@ -38,7 +38,7 @@
             />
           </td>
           <td>
-            <button @click="deleteQuestion(question.id)" class="btn btn-outline-secondary btn-sm">Delete</button>
+            <button @click="deleteQuestion(question.id)" class="btn btn-outline-danger btn-sm">Delete</button>
           </td>
           <td>{{ question.quizQuestion.multipleChoicesQuestion.stem }}</td>
           <template
