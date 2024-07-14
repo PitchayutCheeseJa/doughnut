@@ -38,7 +38,21 @@
             />
           </td>
           <td>
-            <button @click="deleteQuestion(question.id)" class="btn btn-outline-danger btn-sm">Delete</button>
+            <div class="actions-button-container">
+              <PopButton btn-class="btn btn-outline-warning" title="Edit">
+                <!-- prettier-ignore -->
+                <template #default="{ closer }">
+                  <NoteEditQuestion
+                    v-bind="{ note, question }"
+                    @close-dialog="
+                      closer($event);
+                      fetchQuestions();
+                    "
+                  />
+                </template>
+              </PopButton>
+              <button @click="deleteQuestion(question.id)" class="btn btn-outline-danger btn-sm">Delete</button>
+            </div>
           </td>
           <td>{{ question.quizQuestion.multipleChoicesQuestion.stem }}</td>
           <template
@@ -67,6 +81,7 @@ import { Note, QuizQuestionAndAnswer } from "@/generated/backend"
 import useLoadingApi from "@/managedApi/useLoadingApi"
 import NoteAddQuestion from "./NoteAddQuestion.vue"
 import PopButton from "../commons/Popups/PopButton.vue"
+import NoteEditQuestion from "./NoteEditQuestion.vue"
 
 const { managedApi } = useLoadingApi()
 const props = defineProps({
@@ -95,9 +110,9 @@ const toggleApproval = async (questionId?: number) => {
 }
 
 const deleteQuestion = async (questionId: number) => {
-  managedApi.restQuizQuestionController.deleteQuestion(
-    questionId
-  ).then(fetchQuestions)
+  managedApi.restQuizQuestionController
+    .deleteQuestion(questionId)
+    .then(fetchQuestions)
 }
 
 onMounted(() => {
@@ -124,5 +139,9 @@ onMounted(() => {
 
 .correct-choice {
   background-color: #4caf50;
+}
+.actions-button-container {
+  display: flex;
+  gap: 4px;
 }
 </style>
