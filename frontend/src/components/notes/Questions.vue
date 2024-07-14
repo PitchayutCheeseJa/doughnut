@@ -38,7 +38,7 @@
             />
           </td>
           <td>
-            <button class="btn btn-outline-secondary btn-sm">Delete</button>
+            <button @click="deleteQuestion(question.id)" class="btn btn-outline-secondary btn-sm">Delete</button>
           </td>
           <td>{{ question.quizQuestion.multipleChoicesQuestion.stem }}</td>
           <template
@@ -93,6 +93,13 @@ const toggleApproval = async (questionId?: number) => {
     await managedApi.restQuizQuestionController.toggleApproval(questionId)
   }
 }
+
+const deleteQuestion = async (questionId: number) => {
+  managedApi.restQuizQuestionController.deleteQuestion(
+    questionId
+  ).then(fetchQuestions)
+}
+
 onMounted(() => {
   fetchQuestions()
 })
